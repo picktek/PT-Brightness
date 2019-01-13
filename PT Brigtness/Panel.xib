@@ -15,6 +15,8 @@
                 <outlet property="contrastLabel" destination="ZuZ-3D-ncs" id="KfL-9n-ohC"/>
                 <outlet property="contrastLabelValue" destination="tN0-GT-fsM" id="LQx-Mp-7K2"/>
                 <outlet property="contrastSlider" destination="RaM-9N-exd" id="Q3E-9n-u3D"/>
+                <outlet property="enforceButton" destination="Do6-e8-G9D" id="tR2-Hf-ovQ"/>
+                <outlet property="startButton" destination="LQl-Kz-eR0" id="q7w-XJ-de2"/>
                 <outlet property="window" destination="5" id="7"/>
             </connections>
         </customObject>
@@ -94,6 +96,28 @@
                         </buttonCell>
                         <connections>
                             <action selector="quitApp:" target="-2" id="sDr-xA-RFG"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="Do6-e8-G9D">
+                        <rect key="frame" x="18" y="16" width="69" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Enforce" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TrB-cW-tdE">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="toggleEnforce:" target="-2" id="YhO-5j-ne5"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="LQl-Kz-eR0">
+                        <rect key="frame" x="91" y="16" width="52" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Start" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2G5-Wd-Y5I">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="toggleLaunchAtLogin:" target="-2" id="3FG-Uy-q7k"/>
                         </connections>
                     </button>
                 </subviews>

@@ -15,6 +15,9 @@
 
 @interface PanelController : NSWindowController <NSWindowDelegate>
 {
+    NSTimer *fiveSecondTimer;
+    NSPointerArray *_displayIDs;
+    
     BOOL _hasActivePanel;
     __unsafe_unretained BackgroundView *_backgroundView;
     __unsafe_unretained id<PanelControllerDelegate> _delegate;
@@ -27,6 +30,8 @@
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *brightLabelValue;
 @property (nonatomic, unsafe_unretained) IBOutlet NSSlider *contrastSlider;
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *contrastLabelValue;
+@property (nonatomic, unsafe_unretained) IBOutlet NSButton* enforceButton;
+@property (nonatomic, unsafe_unretained) IBOutlet NSButton* startButton;
 
 @property (nonatomic) BOOL hasActivePanel;
 @property (nonatomic, unsafe_unretained, readonly) id<PanelControllerDelegate> delegate;
@@ -35,5 +40,7 @@
 
 - (void)openPanel;
 - (void)closePanel;
+- (IBAction)toggleLaunchAtLogin:(id)sender;
+- (void)startTimedTask;
 
 @end

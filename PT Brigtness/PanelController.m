@@ -2,7 +2,9 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
 #import "MenubarController.h"
-#import "ddc.h"
+//#import "ddc.h"
+#import "DDC.h"
+#import <ServiceManagement/ServiceManagement.h>
 
 #define OPEN_DURATION .15
 #define CLOSE_DURATION .1
@@ -27,29 +29,164 @@
     {
         _delegate = delegate;
     }
+    
+    @autoreleasepool {
+        
+        _displayIDs = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory | NSPointerFunctionsIntegerPersonality];
+        
+        for (NSScreen *screen in NSScreen.screens)
+        {
+            NSDictionary *description = [screen deviceDescription];
+            if ([description objectForKey:@"NSDeviceIsScreen"]) {
+                CGDirectDisplayID screenNumber = [[description objectForKey:@"NSScreenNumber"] unsignedIntValue];
+                if (CGDisplayIsBuiltin(screenNumber)) continue; // ignore MacBook screens because the lid can be closed and they don't use DDC.
+                [_displayIDs addPointer:(void *)(UInt64)screenNumber];
+                NSSize displayPixelSize = [[description objectForKey:NSDeviceSize] sizeValue];
+                CGSize displayPhysicalSize = CGDisplayScreenSize(screenNumber); // dspPhySz only valid if EDID present!
+                float displayScale = [screen backingScaleFactor];
+                double rotation = CGDisplayRotation(screenNumber);
+                if (displayScale > 1) {
+                    NSLog(@"D: NSScreen #%u (%.0fx%.0f %g°) HiDPI",
+                          screenNumber,
+                          displayPixelSize.width,
+                          displayPixelSize.height,
+                          rotation);
+                } else {
+                    NSLog(@"D: NSScreen #%u (%.0fx%.0f %g°) %0.2f DPI",
+                          screenNumber,
+                          displayPixelSize.width,
+                          displayPixelSize.height,
+                          rotation,
+                          (displayPixelSize.width / displayPhysicalSize.width) * 25.4f); // there being 25.4 mm in an inch
+                }
+            }
+        }
+        
+    }
+        
     return self;
 }
 
 - (void)dealloc
 {
-  
+    
     
 }
 
-- (void)setControlValue:(int)control :(int)value {
-    struct DDCWriteCommand write_command;
-    write_command.control_id = control;
-    write_command.new_value = value;
-    ddc_write(0, &write_command);
+- (IBAction)toggleEnforce:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool:[sender state] == 1 forKey:@"enforce_values"];
 }
 
+- (IBAction)toggleLaunchAtLogin:(id)sender
+{
+    int clickedSegment = [sender state];
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSLog(@"toggleLaunchAtLogin: %@", [bundle bundleIdentifier]);
+    [[NSUserDefaults standardUserDefaults] setBool:[sender state] == 1 forKey:@"starts_at_login"];
+    if (clickedSegment == 0) { // ON
+        // Turn on launch at login
+        if (!SMLoginItemSetEnabled ((__bridge CFStringRef)[bundle bundleIdentifier], YES)) {
+            NSAlert *alert = [NSAlert alertWithMessageText:@"An error ocurred"
+                                             defaultButton:@"OK"
+                                           alternateButton:nil
+                                               otherButton:nil
+                                 informativeTextWithFormat:@"Couldn't add Helper App to launch at login item list."];
+            [alert runModal];
+        }
+    }
+    if (clickedSegment == 1) { // OFF
+        // Turn off launch at login
+        if (!SMLoginItemSetEnabled ((__bridge CFStringRef)[bundle bundleIdentifier], NO)) {
+            NSAlert *alert = [NSAlert alertWithMessageText:@"An error ocurred"
+                                             defaultButton:@"OK"
+                                           alternateButton:nil
+                                               otherButton:nil
+                                 informativeTextWithFormat:@"Couldn't remove Helper App from launch at login item list."];
+            [alert runModal];
+        }
+    }
+}
+
+
+- (void)performBackgroundTask
+{
+    BOOL enforceValues = [[NSUserDefaults standardUserDefaults] boolForKey:@"enforce_values"];
+    if(enforceValues == false) {
+        [self setControlsToCurrentValues];
+        return;
+    }
+    
+    int stored_brigtness = (int)[[NSUserDefaults standardUserDefaults] integerForKey:[NSString stringWithFormat:@"%d", 0x10]];
+    int stored_contrast  = (int)[[NSUserDefaults standardUserDefaults] integerForKey:[NSString stringWithFormat:@"%d", 0x12]];
+    
+    
+    [self setControlValue:0x10 value:stored_brigtness];
+    [self setControlValue:0x12 value:stored_contrast];
+    
+    [self setControlsToCurrentValues];
+}
+
+- (void)startTimedTask
+{
+    if(fiveSecondTimer == nil) {
+        fiveSecondTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(performBackgroundTask) userInfo:nil repeats:YES];
+    }
+}
+
+//- (void)setControlValue:(int)control value:(int)value {
+//    struct DDCWriteCommand write_command;
+//    write_command.control_id = control;
+//    write_command.new_value = value;
+//    ddc_write(0, &write_command);
+//
+//    [[NSUserDefaults standardUserDefaults] setInteger:value forKey:[NSString stringWithFormat:@"%d", control]];
+//}
+
+
+//- (int)readControlValue:(int)control {
+//    struct DDCReadCommand read_command;
+//    read_command.control_id = control;
+//
+//    ddc_read(0, &read_command);
+//    return ((int)read_command.response.current_value);
+//}
+
+- (void)setControlValue:(int)control value:(int)value {
+    CGDirectDisplayID cdisplay = (CGDirectDisplayID)[_displayIDs pointerAtIndex:0];
+    setControl(cdisplay, control, value);
+}
 
 - (int)readControlValue:(int)control {
-    struct DDCReadCommand read_command;
-    read_command.control_id = control;
+    CGDirectDisplayID cdisplay = (CGDirectDisplayID)[_displayIDs pointerAtIndex:0];
+    return (int)getControl(cdisplay, control);
+}
+
+void setControl(CGDirectDisplayID cdisplay, uint control_id, uint new_value)
+{
+    struct DDCWriteCommand command;
+    command.control_id = control_id;
+    command.new_value = new_value;
     
-    ddc_read(0, &read_command);
-    return ((int)read_command.response.current_value);
+    if (!DDCWrite(cdisplay, &command)) {
+        NSLog(@"E: Failed to send DDC command!");
+    }
+}
+
+uint getControl(CGDirectDisplayID cdisplay, uint control_id)
+{
+    struct DDCReadCommand command;
+    command.control_id = control_id;
+    command.max_value = 0;
+    command.current_value = 0;
+    
+    if (!DDCRead(cdisplay, &command)) {
+        NSLog(@"E: DDC send command failed!");
+        NSLog(@"E: VCP control #%u (0x%02hhx) = current: %u, max: %u", command.control_id, command.control_id, command.current_value, command.max_value);
+    } else {
+        NSLog(@"I: VCP control #%u (0x%02hhx) = current: %u, max: %u", command.control_id, command.control_id, command.current_value, command.max_value);
+    }
+    return command.current_value;
 }
 
 
@@ -69,7 +206,7 @@
 
 - (void)setControlAndUpdateLabel:(int)control :(id)slider
 {
-    [self setControlValue:control :[slider intValue]];
+    [self setControlValue:control value:[slider intValue]];
 }
 
 #pragma mark -
@@ -171,7 +308,7 @@
     
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
     NSRect statusRect = [self statusRectForWindow:panel];
-
+    
     NSRect panelRect = [panel frame];
     panelRect.size.width = PANEL_WIDTH;
     panelRect.size.height = POPUP_HEIGHT;
@@ -211,6 +348,12 @@
     [NSAnimationContext endGrouping];
     
     [self setControlsToCurrentValues];
+    
+    BOOL loginStart = [[NSUserDefaults standardUserDefaults] boolForKey:@"starts_at_login"];
+    BOOL enforceValues = [[NSUserDefaults standardUserDefaults] boolForKey:@"enforce_values"];
+    
+    [_enforceButton setState:enforceValues];
+    [_startButton setState:loginStart];
 }
 
 - (void)closePanel
@@ -228,7 +371,7 @@
 
 - (IBAction)setBrightness:(id)sender {
     [_brightLabelValue setIntValue:[sender intValue]];
-    [self setControlAndUpdateLabel:0x10 :sender];    
+    [self setControlAndUpdateLabel:0x10 :sender];
 }
 
 - (IBAction)setContrast:(id)sender {

@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		0B52B9D521E7BE31003DE040 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B52B9D421E7BE31003DE040 /* IOKit.framework */; };
 		0B52B9D721E7BE38003DE040 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B52B9D621E7BE38003DE040 /* ApplicationServices.framework */; };
-		0B52B9EF21E7C8CF003DE040 /* libddc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B52B9ED21E7C800003DE040 /* libddc.a */; };
+		0B981A4921EB4C220053391F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B981A4821EB4C220053391F /* main.m */; };
+		0B981A4D21EB51F30053391F /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B981A4C21EB51F30053391F /* ServiceManagement.framework */; };
+		0BC8F18C21EBAC5300386B91 /* DDC.c in Sources */ = {isa = PBXBuildFile; fileRef = 0BC8F18921EBAC5300386B91 /* DDC.c */; };
 		DD4F7C0913C30F9F00825C6E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4F7C0813C30F9F00825C6E /* Cocoa.framework */; };
-		DD4F7C1513C30F9F00825C6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1413C30F9F00825C6E /* main.m */; };
 		DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C1B13C30F9F00825C6E /* ApplicationDelegate.m */; };
 		DD4F7C1F13C30F9F00825C6E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD4F7C1D13C30F9F00825C6E /* MainMenu.xib */; };
 		DD4F7C3813C317A500825C6E /* MenubarController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4F7C3713C317A500825C6E /* MenubarController.m */; };
@@ -26,43 +27,33 @@
 		DDF4EFAE16C80AD30044D141 /* StatusHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDF4EFAD16C80AD30044D141 /* StatusHighlighted@2x.png */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		0B52B9EC21E7C800003DE040 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0B52B9E821E7C800003DE040 /* ddc.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC046055464E500DB518D;
-			remoteInfo = ddc;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0B52B9D421E7BE31003DE040 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		0B52B9D621E7BE38003DE040 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
-		0B52B9DF21E7BF91003DE040 /* ddc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ddc.h; path = ../LIB/ddc/ddc.h; sourceTree = "<group>"; };
-		0B52B9E821E7C800003DE040 /* ddc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ddc.xcodeproj; path = LIB/ddc/ddc.xcodeproj; sourceTree = SOURCE_ROOT; };
 		0B52B9EE21E7C814003DE040 /* PT Brightness-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PT Brightness-Prefix.pch"; path = "PT Brigtness/PT Brightness-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		0B981A4821EB4C220053391F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "PT Brigtness/main.m"; sourceTree = "<group>"; };
+		0B981A4C21EB51F30053391F /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		0BC8F18921EBAC5300386B91 /* DDC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = DDC.c; path = "PT Brigtness/DDC.c"; sourceTree = "<group>"; };
+		0BC8F18B21EBAC5300386B91 /* DDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDC.h; path = "PT Brigtness/DDC.h"; sourceTree = "<group>"; };
 		DD4F7C0413C30F9F00825C6E /* PT Brightness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PT Brightness.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD4F7C0813C30F9F00825C6E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		DD4F7C0B13C30F9F00825C6E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		DD4F7C0C13C30F9F00825C6E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DD4F7C0D13C30F9F00825C6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		DD4F7C1013C30F9F00825C6E /* PT Brightness-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PT Brightness-Info.plist"; path = "../PT Brigtness/PT Brightness-Info.plist"; sourceTree = "<group>"; };
-		DD4F7C1413C30F9F00825C6E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../PT Brigtness/main.m"; sourceTree = "<group>"; };
-		DD4F7C1A13C30F9F00825C6E /* ApplicationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = "../PT Brigtness/ApplicationDelegate.h"; sourceTree = "<group>"; };
-		DD4F7C1B13C30F9F00825C6E /* ApplicationDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ApplicationDelegate.m; path = "../PT Brigtness/ApplicationDelegate.m"; sourceTree = "<group>"; };
+		DD4F7C1A13C30F9F00825C6E /* ApplicationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ApplicationDelegate.h; path = "PT Brigtness/ApplicationDelegate.h"; sourceTree = "<group>"; };
+		DD4F7C1B13C30F9F00825C6E /* ApplicationDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ApplicationDelegate.m; path = "PT Brigtness/ApplicationDelegate.m"; sourceTree = "<group>"; };
 		DD4F7C1E13C30F9F00825C6E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		DD4F7C3613C317A500825C6E /* MenubarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenubarController.h; path = "../PT Brigtness/MenubarController.h"; sourceTree = "<group>"; };
-		DD4F7C3713C317A500825C6E /* MenubarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenubarController.m; path = "../PT Brigtness/MenubarController.m"; sourceTree = "<group>"; };
-		DD4F7C3A13C3180800825C6E /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusItemView.h; path = "../PT Brigtness/StatusItemView.h"; sourceTree = "<group>"; };
-		DD4F7C3B13C3180800825C6E /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusItemView.m; path = "../PT Brigtness/StatusItemView.m"; sourceTree = "<group>"; };
-		DD4F7C3D13C318D600825C6E /* PanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PanelController.h; path = "../PT Brigtness/PanelController.h"; sourceTree = "<group>"; };
-		DD4F7C3E13C318D600825C6E /* PanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PanelController.m; path = "../PT Brigtness/PanelController.m"; sourceTree = "<group>"; };
+		DD4F7C3613C317A500825C6E /* MenubarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenubarController.h; path = "PT Brigtness/MenubarController.h"; sourceTree = "<group>"; };
+		DD4F7C3713C317A500825C6E /* MenubarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenubarController.m; path = "PT Brigtness/MenubarController.m"; sourceTree = "<group>"; };
+		DD4F7C3A13C3180800825C6E /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StatusItemView.h; path = "PT Brigtness/StatusItemView.h"; sourceTree = "<group>"; };
+		DD4F7C3B13C3180800825C6E /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatusItemView.m; path = "PT Brigtness/StatusItemView.m"; sourceTree = "<group>"; };
+		DD4F7C3D13C318D600825C6E /* PanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PanelController.h; path = "PT Brigtness/PanelController.h"; sourceTree = "<group>"; };
+		DD4F7C3E13C318D600825C6E /* PanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PanelController.m; path = "PT Brigtness/PanelController.m"; sourceTree = "<group>"; };
 		DD4F7C4013C31B4A00825C6E /* Panel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Panel.xib; path = "PT Brigtness/Panel.xib"; sourceTree = "<group>"; };
-		DD4F7C4213C31BD200825C6E /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Panel.h; path = "../PT Brigtness/Panel.h"; sourceTree = "<group>"; };
-		DD4F7C4313C31BD200825C6E /* Panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Panel.m; path = "../PT Brigtness/Panel.m"; sourceTree = "<group>"; };
-		DD4F7C4513C3208500825C6E /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackgroundView.h; path = "../PT Brigtness/BackgroundView.h"; sourceTree = "<group>"; };
-		DD4F7C4613C3208500825C6E /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundView.m; path = "../PT Brigtness/BackgroundView.m"; sourceTree = "<group>"; };
+		DD4F7C4213C31BD200825C6E /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Panel.h; path = "PT Brigtness/Panel.h"; sourceTree = "<group>"; };
+		DD4F7C4313C31BD200825C6E /* Panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Panel.m; path = "PT Brigtness/Panel.m"; sourceTree = "<group>"; };
+		DD4F7C4513C3208500825C6E /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackgroundView.h; path = "PT Brigtness/BackgroundView.h"; sourceTree = "<group>"; };
+		DD4F7C4613C3208500825C6E /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundView.m; path = "PT Brigtness/BackgroundView.m"; sourceTree = "<group>"; };
 		DD4F7C4913C322FA00825C6E /* Status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Status.png; path = "PT Brigtness/Status.png"; sourceTree = "<group>"; };
 		DD4F7C4A13C322FA00825C6E /* StatusHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StatusHighlighted.png; path = "PT Brigtness/StatusHighlighted.png"; sourceTree = "<group>"; };
 		DDF4EFAB16C80A510044D141 /* Status@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Status@2x.png"; path = "PT Brigtness/Status@2x.png"; sourceTree = "<group>"; };
@@ -74,7 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B52B9EF21E7C8CF003DE040 /* libddc.a in Frameworks */,
+				0B981A4D21EB51F30053391F /* ServiceManagement.framework in Frameworks */,
 				0B52B9D721E7BE38003DE040 /* ApplicationServices.framework in Frameworks */,
 				0B52B9D521E7BE31003DE040 /* IOKit.framework in Frameworks */,
 				DD4F7C0913C30F9F00825C6E /* Cocoa.framework in Frameworks */,
@@ -84,14 +75,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B52B9E921E7C800003DE040 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0B52B9ED21E7C800003DE040 /* libddc.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		DD4F7BF913C30F9F00825C6E = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +96,7 @@
 		DD4F7C0713C30F9F00825C6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B981A4C21EB51F30053391F /* ServiceManagement.framework */,
 				0B52B9D621E7BE38003DE040 /* ApplicationServices.framework */,
 				0B52B9D421E7BE31003DE040 /* IOKit.framework */,
 				DD4F7C0B13C30F9F00825C6E /* AppKit.framework */,
@@ -131,17 +115,15 @@
 				DD4F7C0F13C30F9F00825C6E /* Supporting Files */,
 			);
 			name = Sources;
-			path = Popup;
 			sourceTree = "<group>";
 		};
 		DD4F7C0F13C30F9F00825C6E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0B52B9E821E7C800003DE040 /* ddc.xcodeproj */,
-				DD4F7C1013C30F9F00825C6E /* PT Brightness-Info.plist */,
 				0B52B9EE21E7C814003DE040 /* PT Brightness-Prefix.pch */,
-				0B52B9DF21E7BF91003DE040 /* ddc.h */,
-				DD4F7C1413C30F9F00825C6E /* main.m */,
+				0BC8F18921EBAC5300386B91 /* DDC.c */,
+				0BC8F18B21EBAC5300386B91 /* DDC.h */,
+				0B981A4821EB4C220053391F /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -245,28 +227,12 @@
 			mainGroup = DD4F7BF913C30F9F00825C6E;
 			productRefGroup = DD4F7C0513C30F9F00825C6E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 0B52B9E921E7C800003DE040 /* Products */;
-					ProjectRef = 0B52B9E821E7C800003DE040 /* ddc.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				DD4F7C0313C30F9F00825C6E /* PT Brightness */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		0B52B9ED21E7C800003DE040 /* libddc.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libddc.a;
-			remoteRef = 0B52B9EC21E7C800003DE040 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DD4F7C0213C30F9F00825C6E /* Resources */ = {
@@ -289,12 +255,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD4F7C1513C30F9F00825C6E /* main.m in Sources */,
 				DD4F7C1C13C30F9F00825C6E /* ApplicationDelegate.m in Sources */,
+				0BC8F18C21EBAC5300386B91 /* DDC.c in Sources */,
 				DD4F7C3813C317A500825C6E /* MenubarController.m in Sources */,
 				DD4F7C3C13C3180800825C6E /* StatusItemView.m in Sources */,
 				DD4F7C3F13C318D600825C6E /* PanelController.m in Sources */,
 				DD4F7C4413C31BD200825C6E /* Panel.m in Sources */,
+				0B981A4921EB4C220053391F /* main.m in Sources */,
 				DD4F7C4713C3208500825C6E /* BackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
