@@ -2,7 +2,6 @@
 #import "BackgroundView.h"
 #import "StatusItemView.h"
 #import "MenubarController.h"
-//#import "ddc.h"
 #import "DDC.h"
 #import <ServiceManagement/ServiceManagement.h>
 
@@ -134,24 +133,6 @@
     }
 }
 
-//- (void)setControlValue:(int)control value:(int)value {
-//    struct DDCWriteCommand write_command;
-//    write_command.control_id = control;
-//    write_command.new_value = value;
-//    ddc_write(0, &write_command);
-//
-//    [[NSUserDefaults standardUserDefaults] setInteger:value forKey:[NSString stringWithFormat:@"%d", control]];
-//}
-
-
-//- (int)readControlValue:(int)control {
-//    struct DDCReadCommand read_command;
-//    read_command.control_id = control;
-//
-//    ddc_read(0, &read_command);
-//    return ((int)read_command.response.current_value);
-//}
-
 - (void)setControlValue:(int)control value:(int)value {
     CGDirectDisplayID cdisplay = (CGDirectDisplayID)[_displayIDs pointerAtIndex:0];
     setControl(cdisplay, control, value);
@@ -201,6 +182,12 @@ uint getControl(CGDirectDisplayID cdisplay, uint control_id)
     int contrast_value = [self readControlValue:0x12];
     [_contrastSlider setIntValue:contrast_value];
     [_contrastLabelValue setIntValue:contrast_value];
+    
+    
+    //Volume
+    int volume_value = [self readControlValue:0x62];
+    [_volumeSlider setIntValue:volume_value];
+    [_volumeLabelValue setIntValue:volume_value];
 }
 
 
@@ -377,6 +364,11 @@ uint getControl(CGDirectDisplayID cdisplay, uint control_id)
 - (IBAction)setContrast:(id)sender {
     [_contrastLabelValue setIntValue:[sender intValue]];
     [self setControlAndUpdateLabel:0x12 :sender];
+}
+
+- (IBAction)setVolume:(id)sender {
+    [_contrastLabelValue setIntValue:[sender intValue]];
+    [self setControlAndUpdateLabel:0x62 :sender];
 }
 
 - (IBAction)quitApp:(id)sender {

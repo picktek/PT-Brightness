@@ -30,6 +30,8 @@
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *brightLabelValue;
 @property (nonatomic, unsafe_unretained) IBOutlet NSSlider *contrastSlider;
 @property (nonatomic, unsafe_unretained) IBOutlet NSTextField *contrastLabelValue;
+@property (nonatomic, unsafe_unretained) IBOutlet NSSlider *volumeSlider;
+@property (nonatomic, unsafe_unretained) IBOutlet NSTextField *volumeLabelValue;
 @property (nonatomic, unsafe_unretained) IBOutlet NSButton* enforceButton;
 @property (nonatomic, unsafe_unretained) IBOutlet NSButton* startButton;
 
